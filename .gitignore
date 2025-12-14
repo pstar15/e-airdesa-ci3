@@ -51,3 +51,6 @@ application/cache/*
 # === User Uploads ===
 uploads/*
 !uploads/.gitkeep
+
+# === CodeIgniter Core ===
+system/
