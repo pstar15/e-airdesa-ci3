@@ -96,27 +96,31 @@
     // Ketika halaman selesai load
     window.addEventListener("load", finishLoader);
 
-    // Tangkap klik ke semua link yang memuat halaman baru
     document.addEventListener("click", function (e) {
-        let target = e.target.closest("a");
+		let target = e.target.closest("a");
 
-        if (!target) return;
+		if (!target) return;
 
-        // Abaikan link yang tidak memuat halaman baru
-        if (
-            target.getAttribute("target") === "_blank" ||
-            target.href.startsWith("javascript:") ||
-            target.href === "#" ||
-            target.dataset.toggle === "modal" ||
-            target.dataset.target ||
-            target.dataset.toggle === "dropdown"
-        ) {
-            return;
-        }
+		// 🚫 KECUALIKAN scroll-to-top
+		if (target.classList.contains("scroll-to-top")) {
+			return;
+		}
 
-        // Jika link valid → mulai loading
-        startLoader();
-    });
+		// Abaikan link yang tidak memuat halaman baru
+		if (
+			target.getAttribute("target") === "_blank" ||
+			target.href.startsWith("javascript:") ||
+			target.getAttribute("href") === "#" ||
+			target.getAttribute("href").startsWith("#") || // 🔥 PENTING
+			target.dataset.toggle === "modal" ||
+			target.dataset.target ||
+			target.dataset.toggle === "dropdown"
+		) {
+			return;
+		}
+
+		startLoader();
+	});
 
     // Tangkap submit form
     document.addEventListener("submit", function () {
